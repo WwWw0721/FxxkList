@@ -6,13 +6,8 @@
   <title>共用表情月曆</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      -webkit-text-size-adjust: 100%;
-    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
 
     body {
       margin: 0;
@@ -24,14 +19,11 @@
 
     main {
       width: min(100%, 820px);
-      margin: 0 auto;
+      margin: auto;
       padding: 20px 12px 40px;
     }
 
-    h1 {
-      margin: 0 0 8px;
-      font-size: 28px;
-    }
+    h1 { margin: 0 0 8px; font-size: 28px; }
 
     .connection {
       min-height: 20px;
@@ -44,7 +36,7 @@
       margin-bottom: 18px;
       padding: 20px;
       border-radius: 18px;
-      background: #fff;
+      background: white;
       box-shadow: 0 6px 24px #19385a12;
     }
 
@@ -55,23 +47,11 @@
       border: 0;
     }
 
-    button,
-    input {
-      font: inherit;
-    }
+    button, input { font: inherit; }
+    button { cursor: pointer; touch-action: manipulation; }
+    button:disabled { cursor: not-allowed; opacity: .5; }
 
-    button {
-      cursor: pointer;
-      touch-action: manipulation;
-    }
-
-    button:disabled {
-      cursor: not-allowed;
-      opacity: .55;
-    }
-
-    button:focus-visible,
-    input:focus-visible {
+    button:focus-visible, input:focus-visible {
       outline: 3px solid #e6a638;
       outline-offset: 2px;
     }
@@ -90,7 +70,7 @@
       padding: 12px;
       border: 1px solid #a8bbce;
       border-radius: 10px;
-      background: #fff;
+      background: white;
       color: #19385a;
     }
 
@@ -103,14 +83,16 @@
 
     .choice {
       position: relative;
+      display: grid;
+      place-items: center;
       min-width: 0;
-      min-height: 92px;
-      padding: 12px 5px;
+      min-height: 78px;
+      padding: 8px;
       border: 2px solid #d4e0ec;
       border-radius: 14px;
       background: #f7fbff;
-      color: #19385a;
-      font-weight: bold;
+      font-size: 38px;
+      line-height: 1;
     }
 
     .choice.selected {
@@ -122,15 +104,10 @@
       content: "✓";
       position: absolute;
       top: 5px;
-      right: 9px;
+      right: 8px;
       color: #2373b5;
-    }
-
-    .choice-emoji {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 34px;
-      line-height: 1.2;
+      font-size: 16px;
+      font-weight: bold;
     }
 
     .selection-box {
@@ -166,24 +143,29 @@
       gap: 10px;
     }
 
-    #save,
-    #clear {
+    .actions button {
       min-height: 44px;
-      padding: 11px 18px;
+      padding: 11px 16px;
       border-radius: 10px;
     }
 
     #save {
       border: 0;
       background: #19385a;
-      color: #fff;
+      color: white;
       font-weight: bold;
     }
 
     #clear {
       border: 1px solid #b9cbdb;
-      background: #fff;
+      background: white;
       color: #536b80;
+    }
+
+    #delete-day {
+      border: 1px solid #d38a8a;
+      background: #fff5f5;
+      color: #a33333;
     }
 
     #message {
@@ -194,10 +176,7 @@
       overflow-wrap: anywhere;
     }
 
-    .calendar {
-      padding: 0;
-      overflow: hidden;
-    }
+    .calendar { padding: 0; overflow: hidden; }
 
     .calendar-header {
       display: flex;
@@ -220,14 +199,13 @@
       padding: 0;
       border: 1px solid #bfd0df;
       border-radius: 10px;
-      background: #fff;
+      background: white;
       color: #19385a;
       font-size: 26px;
       line-height: 1;
     }
 
-    .weekdays,
-    #days {
+    .weekdays, #days {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
     }
@@ -240,19 +218,17 @@
       font-weight: bold;
     }
 
-    .day,
-    .blank {
+    .day, .blank {
       min-width: 0;
       min-height: 112px;
       padding: 6px;
       border: 0;
       border-top: 1px solid #e2ebf3;
       border-right: 1px solid #e2ebf3;
-      background: #fff;
+      background: white;
     }
 
-    .day:nth-child(7n),
-    .blank:nth-child(7n) {
+    .day:nth-child(7n), .blank:nth-child(7n) {
       border-right: 0;
     }
 
@@ -264,9 +240,7 @@
       text-align: left;
     }
 
-    .day:hover {
-      background: #f2f8ff;
-    }
+    .day:hover { background: #f2f8ff; }
 
     .day.selected-date {
       background: #e5f3ff;
@@ -285,7 +259,7 @@
 
     .day.today .number {
       background: #19385a;
-      color: #fff;
+      color: white;
     }
 
     .day-records {
@@ -302,9 +276,7 @@
       line-height: 1.25;
     }
 
-    .blank {
-      background: #f8fbfe;
-    }
+    .blank { background: #f8fbfe; }
 
     .note {
       margin: 0 2px;
@@ -314,63 +286,23 @@
     }
 
     @media (max-width: 600px) {
-      main {
-        padding: 16px 8px 32px;
-      }
-
-      h1 {
-        font-size: 24px;
-      }
-
-      .card {
-        padding: 16px;
-      }
-
-      .calendar {
-        padding: 0;
-      }
+      main { padding: 16px 8px 32px; }
+      h1 { font-size: 24px; }
+      .card { padding: 16px; }
+      .calendar { padding: 0; }
 
       .choices {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 9px;
       }
 
-      .choice {
-        min-height: 80px;
-      }
-
-      .choice-emoji {
-        font-size: 30px;
-      }
-
-      .calendar-header {
-        padding: 12px;
-      }
-
-      .calendar-header h2 {
-        font-size: 18px;
-      }
-
-      .day,
-      .blank {
-        min-height: 88px;
-        padding: 3px;
-      }
-
-      .number {
-        width: 23px;
-        height: 23px;
-        font-size: 12px;
-      }
-
-      .day-records {
-        gap: 2px 0;
-        margin-top: 5px;
-      }
-
-      .day-emoji {
-        font-size: clamp(15px, 4.6vw, 21px);
-      }
+      .choice { min-height: 72px; font-size: 34px; }
+      .calendar-header { padding: 12px; }
+      .calendar-header h2 { font-size: 18px; }
+      .day, .blank { min-height: 88px; padding: 3px; }
+      .number { width: 23px; height: 23px; font-size: 12px; }
+      .day-records { gap: 2px 0; margin-top: 5px; }
+      .day-emoji { font-size: clamp(15px, 4.6vw, 21px); }
     }
   </style>
 </head>
@@ -390,45 +322,14 @@
         <span class="label">選擇表情，可複選</span>
 
         <div class="choices">
-          <button
-            class="choice"
-            type="button"
-            data-type="deer"
-            aria-pressed="false"
-          >
-            <span class="choice-emoji" aria-hidden="true">🦌</span>
-            鹿
-          </button>
-
-          <button
-            class="choice"
-            type="button"
-            data-type="heart"
-            aria-pressed="false"
-          >
-            <span class="choice-emoji" aria-hidden="true">❤️</span>
-            愛心
-          </button>
-
-          <button
-            class="choice"
-            type="button"
-            data-type="mouth"
-            aria-pressed="false"
-          >
-            <span class="choice-emoji" aria-hidden="true">👄</span>
-            嘴巴
-          </button>
-
-          <button
-            class="choice"
-            type="button"
-            data-type="egg"
-            aria-pressed="false"
-          >
-            <span class="choice-emoji" aria-hidden="true">🥚</span>
-            蛋
-          </button>
+          <button class="choice" type="button" data-type="deer"
+                  aria-label="鹿" aria-pressed="false">🦌</button>
+          <button class="choice" type="button" data-type="heart"
+                  aria-label="愛心" aria-pressed="false">❤️</button>
+          <button class="choice" type="button" data-type="mouth"
+                  aria-label="嘴巴" aria-pressed="false">👄</button>
+          <button class="choice" type="button" data-type="egg"
+                  aria-label="蛋" aria-pressed="false">🥚</button>
         </div>
 
         <div class="selection-box">
@@ -439,6 +340,9 @@
         <div class="actions">
           <button id="save" type="button">紀錄</button>
           <button id="clear" type="button">清空本次選擇</button>
+          <button id="delete-day" type="button">
+            刪除這天紀錄
+          </button>
         </div>
       </fieldset>
 
@@ -447,51 +351,32 @@
 
     <section class="card calendar" aria-label="共用月曆">
       <div class="calendar-header">
-        <button
-          id="prev"
-          class="month-button"
-          type="button"
-          aria-label="上個月"
-        >‹</button>
-
+        <button id="prev" class="month-button" type="button"
+                aria-label="上個月">‹</button>
         <h2 id="month-title"></h2>
-
-        <button
-          id="next"
-          class="month-button"
-          type="button"
-          aria-label="下個月"
-        >›</button>
+        <button id="next" class="month-button" type="button"
+                aria-label="下個月">›</button>
       </div>
 
       <div class="weekdays" aria-hidden="true">
-        <div>日</div>
-        <div>一</div>
-        <div>二</div>
-        <div>三</div>
-        <div>四</div>
-        <div>五</div>
-        <div>六</div>
+        <div>日</div><div>一</div><div>二</div><div>三</div>
+        <div>四</div><div>五</div><div>六</div>
       </div>
 
       <div id="days"></div>
     </section>
 
     <p class="note">
-      點一下表情選取，再點一下取消。點月曆日期可以快速選日期。
-      所有人共用紀錄，同一天同種表情只顯示一次。
+      點月曆日期可選日期。「刪除這天紀錄」會清除該日期的所有表情。
     </p>
   </main>
 
   <script type="module">
-    import {
-      initializeApp
-    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
-    import {
-      getAuth,
-      signInAnonymously
-    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+    import { getAuth, signInAnonymously }
+      from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
     import {
       getFirestore,
@@ -500,10 +385,11 @@
       query,
       where,
       onSnapshot,
+      getDocsFromServer,
+      writeBatch,
       serverTimestamp
     } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-    // 已填入你提供的 Firebase 專案設定
     const firebaseConfig = {
       apiKey: "AIzaSyC6d2OgZ4TfOZ80W8gVl8EKTywDBPrjUn8",
       authDomain: "fxxklist-84840.firebaseapp.com",
@@ -537,11 +423,12 @@
     const connection = document.getElementById("connection");
     const form = document.getElementById("record-form");
     const saveButton = document.getElementById("save");
+    const deleteButton = document.getElementById("delete-day");
     const choiceButtons = document.querySelectorAll(".choice");
 
     let db;
     let connected = false;
-    let saving = false;
+    let busy = false;
     let stopListening = null;
     let records = {};
 
@@ -551,7 +438,6 @@
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
-
       return `${year}-${month}-${day}`;
     }
 
@@ -569,10 +455,17 @@
       message.style.color = isError ? "#b33636" : "#256749";
     }
 
+    function updateButtons() {
+      saveButton.disabled = !connected || busy || selected.size === 0;
+
+      const dayRecords = records[dateInput.value];
+      deleteButton.disabled =
+        !connected || busy || !dayRecords || dayRecords.size === 0;
+    }
+
     function renderSelection() {
       choiceButtons.forEach(button => {
         const isSelected = selected.has(button.dataset.type);
-
         button.classList.toggle("selected", isSelected);
         button.setAttribute("aria-pressed", String(isSelected));
       });
@@ -588,8 +481,7 @@
         ? chosenTypes.map(type => symbols[type]).join(" ")
         : "尚未選擇表情";
 
-      saveButton.disabled =
-        !connected || saving || selected.size === 0;
+      updateButtons();
     }
 
     function renderCalendar() {
@@ -608,9 +500,7 @@
         daysElement.append(blank);
       }
 
-      for (let i = 0; i < firstWeekday; i++) {
-        addBlank();
-      }
+      for (let i = 0; i < firstWeekday; i++) addBlank();
 
       for (let day = 1; day <= numberOfDays; day++) {
         const date = formatDate(new Date(year, month, day));
@@ -620,13 +510,8 @@
         button.type = "button";
         button.className = "day";
 
-        if (date === today) {
-          button.classList.add("today");
-        }
-
-        if (date === dateInput.value) {
-          button.classList.add("selected-date");
-        }
+        if (date === today) button.classList.add("today");
+        if (date === dateInput.value) button.classList.add("selected-date");
 
         const description = types
           .filter(type => savedTypes.has(type))
@@ -635,7 +520,8 @@
 
         button.setAttribute(
           "aria-label",
-          `${year} 年 ${month + 1} 月 ${day} 日${description ? "，" + description : ""}`
+          `${year} 年 ${month + 1} 月 ${day} 日` +
+          (description ? `，${description}` : "")
         );
 
         const number = document.createElement("span");
@@ -658,11 +544,12 @@
         button.append(number, entries);
 
         button.addEventListener("click", () => {
-          if (saving) return;
+          if (busy) return;
 
           dateInput.value = date;
           showMessage("");
           renderCalendar();
+          updateButtons();
         });
 
         daysElement.append(button);
@@ -670,27 +557,27 @@
 
       const totalCells = firstWeekday + numberOfDays;
       const remaining = (7 - totalCells % 7) % 7;
+      for (let i = 0; i < remaining; i++) addBlank();
 
-      for (let i = 0; i < remaining; i++) {
-        addBlank();
-      }
+      updateButtons();
     }
 
     function listenToMonth() {
-      if (!connected) return;
+      if (!db) return;
 
       if (stopListening) {
         stopListening();
         stopListening = null;
       }
 
+      connected = false;
       records = {};
+      form.disabled = true;
       renderCalendar();
-      connection.textContent = "正在讀取本月紀錄……";
+      connection.textContent = "正在連接資料庫……";
 
       const year = currentMonth.getFullYear();
       const month = currentMonth.getMonth();
-
       const start = formatDate(new Date(year, month, 1));
       const end = formatDate(new Date(year, month + 1, 1));
 
@@ -714,29 +601,43 @@
             }
 
             for (const type of types) {
-              if (
-                typeof data[type] === "number" &&
-                data[type] > 0
-              ) {
+              if (typeof data[type] === "number" && data[type] > 0) {
                 records[data.date].add(type);
               }
             }
           });
 
-          connection.textContent = snapshot.metadata.fromCache
-            ? "正在與雲端同步……"
-            : "已連線・共用月曆即時同步";
+          // 必須讀到伺服器資料，才開放寫入
+          connected = !snapshot.metadata.fromCache;
+          form.disabled = !connected;
+
+          connection.textContent = connected
+            ? "已連線・共用月曆即時同步"
+            : "等待雲端連線，暫時不能儲存";
 
           renderCalendar();
+          renderSelection();
         },
         error => {
-          connection.textContent = "紀錄讀取失敗";
+          connected = false;
+          form.disabled = true;
+          connection.textContent = "資料庫連線失敗";
           showMessage(
-            `請檢查 Firestore 規則：${error.message}`,
+            `請檢查 Firestore 是否建立、規則是否發布：${error.message}`,
             true
           );
+          updateButtons();
         }
       );
+    }
+
+    function startWaitingNotice(action) {
+      return setTimeout(() => {
+        showMessage(
+          `${action}尚未獲得雲端確認。請檢查網路、Firebase 設定和 Firestore 規則；先不要重複按按鈕。`,
+          true
+        );
+      }, 12000);
     }
 
     choiceButtons.forEach(button => {
@@ -761,21 +662,18 @@
     });
 
     dateInput.addEventListener("change", () => {
-      if (!dateInput.value) return;
+      if (!dateInput.value || busy) return;
 
       const [year, month] = dateInput.value.split("-").map(Number);
-
       const changed =
         year !== currentMonth.getFullYear() ||
         month - 1 !== currentMonth.getMonth();
 
       currentMonth = new Date(year, month - 1, 1);
 
-      if (changed) {
-        listenToMonth();
-      }
-
+      if (changed) listenToMonth();
       renderCalendar();
+      showMessage("");
     });
 
     function changeMonth(amount) {
@@ -798,7 +696,7 @@
     });
 
     saveButton.addEventListener("click", async () => {
-      if (!connected || saving) return;
+      if (!connected || busy) return;
 
       if (!dateInput.value) {
         showMessage("請選擇日期", true);
@@ -821,33 +719,82 @@
         createdAt: serverTimestamp()
       };
 
-      const [year, month] = date.split("-").map(Number);
-
-      if (
-        year !== currentMonth.getFullYear() ||
-        month - 1 !== currentMonth.getMonth()
-      ) {
-        currentMonth = new Date(year, month - 1, 1);
-        listenToMonth();
-      }
-
-      saving = true;
+      busy = true;
       form.disabled = true;
       saveButton.textContent = "儲存中……";
-      showMessage("正在儲存到雲端……");
+      showMessage("正在儲存至雲端……");
+      updateButtons();
+
+      const notice = startWaitingNotice("儲存");
 
       try {
         await addDoc(collection(db, "sharedEmojiRecords"), data);
-
         selected.clear();
         showMessage(`已紀錄到 ${date}！`);
       } catch (error) {
         showMessage(`儲存失敗：${error.message}`, true);
       } finally {
-        saving = false;
-        form.disabled = false;
+        clearTimeout(notice);
+        busy = false;
+        form.disabled = !connected;
         saveButton.textContent = "紀錄";
         renderSelection();
+      }
+    });
+
+    deleteButton.addEventListener("click", async () => {
+      if (!connected || busy || !dateInput.value) return;
+
+      const date = dateInput.value;
+      const dayRecords = records[date];
+
+      if (!dayRecords || dayRecords.size === 0) {
+        showMessage("這天沒有紀錄");
+        return;
+      }
+
+      if (!confirm(`確定刪除 ${date} 的所有表情紀錄嗎？`)) {
+        return;
+      }
+
+      busy = true;
+      form.disabled = true;
+      deleteButton.textContent = "刪除中……";
+      showMessage("正在刪除雲端紀錄……");
+      updateButtons();
+
+      const notice = startWaitingNotice("刪除");
+
+      try {
+        const target = query(
+          collection(db, "sharedEmojiRecords"),
+          where("date", "==", date)
+        );
+
+        const result = await getDocsFromServer(target);
+
+        // 每批最多處理 400 筆，避免超過批次限制
+        const documents = result.docs;
+
+        for (let i = 0; i < documents.length; i += 400) {
+          const batch = writeBatch(db);
+
+          for (const item of documents.slice(i, i + 400)) {
+            batch.delete(item.ref);
+          }
+
+          await batch.commit();
+        }
+
+        showMessage(`已刪除 ${date} 的紀錄`);
+      } catch (error) {
+        showMessage(`刪除失敗：${error.message}`, true);
+      } finally {
+        clearTimeout(notice);
+        busy = false;
+        form.disabled = !connected;
+        deleteButton.textContent = "刪除這天紀錄";
+        updateButtons();
       }
     });
 
@@ -858,30 +805,20 @@
       try {
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-
         db = getFirestore(app);
 
-        // 背景自動匿名驗證，使用者不必操作登入
         await signInAnonymously(auth);
-
-        connected = true;
-        form.disabled = false;
-
-        renderSelection();
         listenToMonth();
       } catch (error) {
         connection.textContent = "連線失敗";
 
         if (error.code === "auth/operation-not-allowed") {
           showMessage(
-            "請先到 Firebase Authentication 啟用「匿名」登入。",
+            "請到 Firebase Authentication 啟用「匿名」登入。",
             true
           );
         } else {
-          showMessage(
-            `請檢查 Firebase 設定：${error.message}`,
-            true
-          );
+          showMessage(`請檢查 Firebase 設定：${error.message}`, true);
         }
       }
     }
