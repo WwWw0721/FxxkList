@@ -3,17 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff1f5">
   <title>共用表情月曆</title>
-
   <style>
     * { box-sizing: border-box; }
     html { -webkit-text-size-adjust: 100%; }
 
+    :root {
+      --background: #fff1f5;
+      --card: #fffdfd;
+      --text: #684c59;
+      --muted: #927782;
+      --border: #efd6df;
+      --pink: #d77f9e;
+      --pink-dark: #b9577d;
+      --pink-light: #ffe4ed;
+      --danger: #ad5068;
+    }
+
     body {
       margin: 0;
       min-width: 280px;
-      background: #eef4fa;
-      color: #19385a;
+      background: var(--background);
+      color: var(--text);
       font-family: Arial, "Noto Sans TC", sans-serif;
     }
 
@@ -28,16 +40,17 @@
     .connection {
       min-height: 20px;
       margin-bottom: 18px;
-      color: #587086;
+      color: var(--muted);
       font-size: 14px;
     }
 
     .card {
       margin-bottom: 18px;
       padding: 20px;
+      border: 1px solid #f8e5eb;
       border-radius: 18px;
-      background: white;
-      box-shadow: 0 6px 24px #19385a12;
+      background: var(--card);
+      box-shadow: 0 8px 28px #b9577d12;
     }
 
     fieldset {
@@ -52,7 +65,7 @@
     button:disabled { cursor: not-allowed; opacity: .5; }
 
     button:focus-visible, input:focus-visible {
-      outline: 3px solid #e6a638;
+      outline: 3px solid var(--pink-dark);
       outline-offset: 2px;
     }
 
@@ -68,10 +81,10 @@
       max-width: 320px;
       margin-bottom: 22px;
       padding: 12px;
-      border: 1px solid #a8bbce;
+      border: 1px solid #e6bfd0;
       border-radius: 10px;
       background: white;
-      color: #19385a;
+      color: var(--text);
     }
 
     .choices {
@@ -88,16 +101,18 @@
       min-width: 0;
       min-height: 78px;
       padding: 8px;
-      border: 2px solid #d4e0ec;
+      border: 2px solid var(--border);
       border-radius: 14px;
-      background: #f7fbff;
+      background: #fff9fb;
       font-size: 38px;
       line-height: 1;
     }
 
+    .choice:hover { background: #fff0f5; }
+
     .choice.selected {
-      border-color: #2373b5;
-      background: #dcefff;
+      border-color: var(--pink);
+      background: var(--pink-light);
     }
 
     .choice.selected::after {
@@ -105,7 +120,7 @@
       position: absolute;
       top: 5px;
       right: 8px;
-      color: #2373b5;
+      color: var(--pink-dark);
       font-size: 16px;
       font-weight: bold;
     }
@@ -114,12 +129,12 @@
       margin-bottom: 18px;
       padding: 13px;
       border-radius: 12px;
-      background: #f3f7fb;
+      background: #fff2f6;
     }
 
     .selection-title {
       margin-bottom: 6px;
-      color: #536b80;
+      color: var(--muted);
       font-size: 14px;
     }
 
@@ -133,7 +148,7 @@
     #selection.empty {
       display: flex;
       align-items: center;
-      color: #6c8092;
+      color: var(--muted);
       font-size: 14px;
     }
 
@@ -151,27 +166,29 @@
 
     #save {
       border: 0;
-      background: #19385a;
+      background: var(--pink-dark);
       color: white;
       font-weight: bold;
     }
 
+    #save:not(:disabled):hover { background: #a84a70; }
+
     #clear {
-      border: 1px solid #b9cbdb;
+      border: 1px solid var(--border);
       background: white;
-      color: #536b80;
+      color: var(--text);
     }
 
     #delete-day {
-      border: 1px solid #d38a8a;
-      background: #fff5f5;
-      color: #a33333;
+      border: 1px solid #e5b2c2;
+      background: #fff0f3;
+      color: var(--danger);
     }
 
     #message {
       min-height: 20px;
       margin: 13px 0 0;
-      color: #256749;
+      color: #8c5470;
       font-size: 14px;
       overflow-wrap: anywhere;
     }
@@ -197,10 +214,10 @@
       width: 42px;
       height: 42px;
       padding: 0;
-      border: 1px solid #bfd0df;
+      border: 1px solid var(--border);
       border-radius: 10px;
-      background: white;
-      color: #19385a;
+      background: #fff8fa;
+      color: var(--pink-dark);
       font-size: 26px;
       line-height: 1;
     }
@@ -213,7 +230,7 @@
     .weekdays div {
       min-width: 0;
       padding: 10px 0;
-      background: #e6f1fa;
+      background: #ffe5ee;
       text-align: center;
       font-weight: bold;
     }
@@ -223,9 +240,9 @@
       min-height: 112px;
       padding: 6px;
       border: 0;
-      border-top: 1px solid #e2ebf3;
-      border-right: 1px solid #e2ebf3;
-      background: white;
+      border-top: 1px solid #f4e1e7;
+      border-right: 1px solid #f4e1e7;
+      background: var(--card);
     }
 
     .day:nth-child(7n), .blank:nth-child(7n) {
@@ -236,15 +253,15 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      color: #19385a;
+      color: var(--text);
       text-align: left;
     }
 
-    .day:hover { background: #f2f8ff; }
+    .day:hover { background: #fff2f6; }
 
     .day.selected-date {
-      background: #e5f3ff;
-      box-shadow: inset 0 0 0 2px #6ca4d1;
+      background: #ffebf1;
+      box-shadow: inset 0 0 0 2px #e6a3bb;
     }
 
     .number {
@@ -258,7 +275,7 @@
     }
 
     .day.today .number {
-      background: #19385a;
+      background: var(--pink-dark);
       color: white;
     }
 
@@ -276,11 +293,11 @@
       line-height: 1.25;
     }
 
-    .blank { background: #f8fbfe; }
+    .blank { background: #fff8fa; }
 
     .note {
       margin: 0 2px;
-      color: #60758a;
+      color: var(--muted);
       font-size: 14px;
       line-height: 1.7;
     }
@@ -340,9 +357,7 @@
         <div class="actions">
           <button id="save" type="button">紀錄</button>
           <button id="clear" type="button">清空本次選擇</button>
-          <button id="delete-day" type="button">
-            刪除這天紀錄
-          </button>
+          <button id="delete-day" type="button">刪除這天紀錄</button>
         </div>
       </fieldset>
 
@@ -452,7 +467,7 @@
 
     function showMessage(text, isError = false) {
       message.textContent = text;
-      message.style.color = isError ? "#b33636" : "#256749";
+      message.style.color = isError ? "#ad5068" : "#8c5470";
     }
 
     function updateButtons() {
@@ -607,7 +622,6 @@
             }
           });
 
-          // 必須讀到伺服器資料，才開放寫入
           connected = !snapshot.metadata.fromCache;
           form.disabled = !connected;
 
@@ -634,7 +648,7 @@
     function startWaitingNotice(action) {
       return setTimeout(() => {
         showMessage(
-          `${action}尚未獲得雲端確認。請檢查網路、Firebase 設定和 Firestore 規則；先不要重複按按鈕。`,
+          `${action}尚未獲得雲端確認。請檢查網路，先不要重複按按鈕。`,
           true
         );
       }, 12000);
@@ -772,8 +786,6 @@
         );
 
         const result = await getDocsFromServer(target);
-
-        // 每批最多處理 400 筆，避免超過批次限制
         const documents = result.docs;
 
         for (let i = 0; i < documents.length; i += 400) {
